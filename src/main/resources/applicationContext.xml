@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean name="zntRpcServer" class="com.iqiyi.elvis.znt.server.ZntRpcServer">
+        <property name="port" value="9000"></property>
+        <property name="serviceClassName" value="com.iqiyi.elvis.znt.custom.service.ZntServiceImpl"></property>
+    </bean>
+
+    <bean name="rpcRpcServer" class="com.iqiyi.elvis.znt.server.ZntRpcServer">
+        <property name="port" value="9001"></property>
+        <property name="serviceClassName" value="com.iqiyi.elvis.znt.custom.service.RpcServiceImpl"></property>
+    </bean>
+
+    <bean name="server" class="com.iqiyi.elvis.znt.init.RpcServer" init-method="init">
+        <property name="zntRpcServerList">
+            <list>
+                <ref bean="zntRpcServer" />
+                <ref bean="rpcRpcServer" />
+            </list>
+        </property>
+    </bean>
+</beans>
